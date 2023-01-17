@@ -1,0 +1,4 @@
+*.log
+*.csv
+*.pyc
+*passwords.conf

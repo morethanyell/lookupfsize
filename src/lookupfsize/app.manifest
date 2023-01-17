@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "info": {
+    "title": "lookupfsize",
+    "id": {
+      "group": null,
+      "name": "lookupfsize",
+      "version": "1.0.0"
+    },
+    "author": [
+      {
+        "name": "morethanyell",
+        "email": null,
+        "company": null
+      }
+    ],
+    "releaseDate": null,
+    "description": "Houses a custom command that gets the file size and other details of a CSV lookup table.",
+    "classification": {
+      "intendedAudience": null,
+      "categories": [],
+      "developmentStatus": null
+    },
+    "commonInformationModels": null,
+    "license": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseNotes": {
+      "name": null,
+      "text": null,
+      "uri": null
+    }
+  },
+  "dependencies": {
+      "name": "Splunk Python SDK",
+      "version: 1.6.16,
+      "url": "https://github.com/splunk/splunk-sdk-python/"
+  },
+  "tasks": [],
+  "inputGroups": {
+  },
+  "incompatibleApps": {
+  },
+  "platformRequirements": {
+    "splunk": {
+      "Enterprise": "*"
+    }
+  }
+}
