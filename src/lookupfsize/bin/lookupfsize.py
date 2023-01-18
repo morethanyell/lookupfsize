@@ -10,6 +10,18 @@ class lookupfsizeCommand(StreamingCommand):
         **Syntax:** **file_path=***<field name that contains the full path of the lookup table>*
         **Description:** The full path of the CSV lookup file.''',
         require=True, validate=validators.Fieldname())
+    
+    verbose = Option(
+        doc='''
+        **Syntax:** **verbose=***(0|1|false|true)*
+        **Description:** Set to true if user needs additional information other than the size of the CSV file.''',
+        require=False, default=False, validate=validators.Boolean())
+    
+    prefix = Option(
+        doc='''
+        **Syntax:** **prefix=***<string>*
+        **Description:** Defaults to "lookup_", set this parameter specify the prefix for the field that will be generated.''',
+        require=False, default="lookup_")
 
     def stream(self, events):
         
@@ -17,17 +29,27 @@ class lookupfsizeCommand(StreamingCommand):
             
             fpath = event[self.file_path]
             
+            if not os.path.isfile(fpath): 
+                event[f'{self.prefix}error_msg'] = 'No such lookup table exists.'
+                yield event
+                continue
+            
             if str(fpath).endswith('.csv'):
                 try:
                     file_size = os.path.getsize(fpath)    
                     matrix = self.rc_count(fpath)
                     
-                    event['lookup_file_size'] = str(file_size)
-                    event['lookup_fsiz_unit'] = "bytes"
-                    event['lookup_row_count'] = str(matrix[0])
-                    event['lookup_col_count'] = str(matrix[1])
+                    event[f'{self.prefix}file_size'] = str(file_size)
+                    event[f'{self.prefix}fsiz_unit'] = "bytes"
+                    
+                    # When Verbose option is true
+                    if self.verbose:                    
+                        event[f'{self.prefix}file_lastmod'] = os.path.getmtime(fpath)
+                        event[f'{self.prefix}row_count'] = str(matrix[0])
+                        event[f'{self.prefix}col_count'] = str(matrix[1])
+                        
                 except Exception as e:
-                    event['error'] = e
+                    event[f'{self.prefix}error_msg'] = e
             
                 yield event
 
