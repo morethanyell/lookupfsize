@@ -29,3 +29,5 @@ Above simply gets the Top 10 largest CSV in your environment. Also, since sample
     - Or whatever user is preferred over `splunk:splunk`
 - Step 3: Restart your Splunk instance
     - E.g.: `$ ~/bin/splunk restart`
+
+##### Buy me a bear: paypal.me/morethanyell
